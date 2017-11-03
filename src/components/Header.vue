@@ -13,8 +13,7 @@ export default {
   name: 'Header',
   components: {
     Icon
-  },
-  data: {}
+  }
 }
 </script>
 
