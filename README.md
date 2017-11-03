@@ -1,27 +1,43 @@
-# resto-client
+# Resto Client
 
-> Resto Client-side App
+Resto Client is a Vue application intended to be used with Resto API
 
-## Build Setup
+## Installation
 
-``` bash
-# install dependencies
-npm install
+Clone the Git repo
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
+```
+git clone git@github.com:zeulb/resto-client.git
+cd resto-client
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Install the dependencies
+
+```
+npm install
+```
+
+## Sandbox
+
+### Setting Up
+
+Resto client is intended to be used with Resto API.
+Configure your resto api authentication token in `config/default.json`
+
+```
+{
+  "api": {
+    "url": "http://localhost:3000",
+    "token": "7c3959f341c12cc05499ede976fcb4ce"
+  }
+}
+```
+
+### Running Server
+Start the server
+
+```
+npm run dev
+```
+
+A server will be run in port 8080 by default.
