@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="Home">
     <h1>Your Orders</h1>
   </div>
 </template>
@@ -14,4 +14,7 @@ export default {
 </script>
 
 <style scoped>
+.Home {
+  margin: 0 20vw;
+}
 </style>
