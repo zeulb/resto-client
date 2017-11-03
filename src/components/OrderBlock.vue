@@ -27,7 +27,7 @@
         <icon v-else class="OrderBlock-chevronIcon" name="chevron-down" />
       </button>
     </div>
-    <OrderDetails v-if="expanded" :order_id="order_id" :feedback_submitted="feedback_submitted" :order_items="order_items" />
+    <OrderDetails v-if="expanded" :order_id="order_id" :ratable_id="ratable_id" :feedback_submitted="feedback_submitted" :order_items="order_items" />
   </div>
 </template>
 
@@ -45,6 +45,7 @@ import 'vue-awesome/icons/chevron-up'
 export default {
   props: {
     order_id: String,
+    ratable_id: Number,
     delivery_date: String,
     delivery_time: String,
     feedback_submitted: Boolean,

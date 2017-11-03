@@ -34,6 +34,7 @@
 <script>
 import FeedbackInput from './FeedbackInput'
 import Icon from 'vue-awesome/components/Icon'
+import config from '../config'
 import currencyFormatter from 'currency-formatter';
 
 export default {
@@ -59,7 +60,22 @@ export default {
     },
     onSubmitFeedback() {
       if (this.complete) {
-        this.submitted = true;
+        fetch(`${config.api.url}/orders/${this.order_id}/feedbacks`, {
+          method: 'post',
+          body: JSON.stringify({
+            feedbacks: this.feedbacks
+          }),
+          headers: {
+            'Authorization': `Bearer ${config.api.token}`,
+            'Content-Type': 'application/json'
+          },
+        })
+          .then(r => r.json())
+          .then(data => {
+            if (data.status === 'OK') {
+              this.submitted = true;
+            }
+          });
       }
     },
     onFeedbackChange(ratable_id, rating, comment) {
