@@ -14,9 +14,7 @@ export default {
   components: {
     Icon
   },
-  data() {
-    return {}
-  }
+  data: {}
 }
 </script>
 
