@@ -5,7 +5,7 @@
     </div>
     <div class="OrderDetails-feedbackForm" v-else>
       How do you like this order?
-      <FeedbackInput v-if="!submitted" :ratable_id="ratable_id" :onChange="onFeedbackChange" />
+      <FeedbackInput v-if="!submitted" :ratable_id="ratable_id" ratable_type="DeliveryOrder" :onChange="onFeedbackChange" />
     </div>
 
     <div class="OrderDetails-orderItems">
@@ -18,7 +18,7 @@
           <span class="OrderDetails-orderItemName">
             {{ item.name }}
           </span>
-          <FeedbackInput v-if="!submitted" :ratable_id="item.ratable_id" :onChange="onFeedbackChange" />
+          <FeedbackInput v-if="!submitted" :ratable_id="item.ratable_id" ratable_type="OrderItem" :onChange="onFeedbackChange" />
           <span class="OrderDetails-orderItemTotalPrice">
             {{ formatPrice(item.total_price) }}
           </span>
@@ -78,8 +78,9 @@ export default {
           });
       }
     },
-    onFeedbackChange(ratable_id, rating, comment) {
-      const feedback = this.feedbacks.find(f => f.ratable_id === ratable_id)
+    onFeedbackChange(ratable_id, ratable_type, rating, comment) {
+      const feedback = this.feedbacks.find(
+        f => f.ratable_id === ratable_id && f.ratable_type === ratable_type)
       feedback.rating = rating
       feedback.comment = comment
     }

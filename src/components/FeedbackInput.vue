@@ -22,6 +22,7 @@ import 'vue-awesome/icons/thumbs-up'
 export default {
   props: {
     ratable_id: Number,
+    ratable_type: String,
     onChange: Function
   },
   name: 'FeedbackInput',
@@ -38,7 +39,7 @@ export default {
       this.onUpdate();
     },
     onUpdate() {
-      this.onChange(this.ratable_id, this.rating, this.comment);
+      this.onChange(this.ratable_id, this.ratable_type, this.rating, this.comment);
     }
   },
   watch: {
