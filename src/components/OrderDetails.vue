@@ -23,8 +23,10 @@
             {{ formatPrice(item.total_price) }}
           </span>
         </div>
-        
       </div>
+      <button v-if="!feedback_submitted" class="OrderDetails-submitFeedbackButton" :disabled="!complete" v-on:click="onSubmitFeedback">
+        Send Feedbacks
+      </button>
     </div>
   </div>
 </template>
@@ -45,9 +47,19 @@ export default {
     FeedbackInput,
     Icon
   },
+  computed: {
+    complete() {
+      return true;
+    }
+  },
   methods: {
     formatPrice(price) {
       return currencyFormatter.format(price / 100.0, { code: 'SGD' });
+    },
+    onSubmitFeedback() {
+      if (this.complete) {
+        this.feedback_submitted = true;
+      }
     }
   }
 }
@@ -86,5 +98,21 @@ export default {
 .OrderDetails-orderItemTotalPrice {
   margin-left: auto;
   font-size: large;
+}
+
+.OrderDetails-submitFeedbackButton {
+  border: none;
+  color: white;
+  background-color: #f57347;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: large;
+  width: 100%;
+  padding: 10px;
+}
+
+.OrderDetails-submitFeedbackButton:disabled {
+  opacity: 0.5;
 }
 </style>
