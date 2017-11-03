@@ -22,9 +22,12 @@
           {{ delivery_time }}
         </div>
       </div>
-      <icon class="OrderBlock-iconButton" name="chevron-down" />
+      <button class="OrderBlock-iconButton" v-on:click="onChevronToggle" >
+        <icon v-if="expanded" class="OrderBlock-chevronIcon" name="chevron-up" />
+        <icon v-else class="OrderBlock-chevronIcon" name="chevron-down" />
+      </button>
     </div>
-    <OrderDetails :order_id="order_id" :feedback_submitted="feedback_submitted" :order_items="order_items" />
+    <OrderDetails v-if="expanded" :order_id="order_id" :feedback_submitted="feedback_submitted" :order_items="order_items" />
   </div>
 </template>
 
@@ -37,6 +40,7 @@ import 'vue-awesome/icons/clock-o'
 import 'vue-awesome/icons/calendar'
 import 'vue-awesome/icons/check'
 import 'vue-awesome/icons/chevron-down'
+import 'vue-awesome/icons/chevron-up'
 
 export default {
   props: {
@@ -58,6 +62,16 @@ export default {
         { code: 'SGD' }
       );
     }
+  },
+  methods: {
+    onChevronToggle() {
+      this.expanded = !this.expanded;
+    }
+  },
+  data() {
+    return {
+      expanded: false
+    };
   }
 }
 </script>
@@ -112,7 +126,14 @@ export default {
 }
 
 .OrderBlock-iconButton {
-  color: #f57347;
   margin-left: 15px;
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0;
+}
+
+.OrderBlock-chevronIcon {
+  color: #f57347;
 }
 </style>
