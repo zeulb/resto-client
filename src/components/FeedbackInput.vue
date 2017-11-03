@@ -8,7 +8,7 @@
       <icon v-if="rating==-1" class="FeedbackInput-ratingIcon" name="thumbs-down" scale="1.5" />
       <icon v-else class="FeedbackInput-ratingIcon" name="thumbs-o-down" scale="1.5" />
     </button>
-    <input class="FeedbackInput-input" type="text" placeholder="Leave us a comment" />
+    <input class="FeedbackInput-input" type="text" placeholder="Leave us a comment?" v-if="rating!=0" />
   </div>
 </template>
 
@@ -50,10 +50,7 @@ export default {
 .FeedbackInput {
   display: flex;
   align-items: center;
-  border: thin solid grey;
   padding: 5px 10px;
-  margin-top: 10px;
-  border-radius: 10px;
 }
 
 .FeedbackInput-thumbButton {
