@@ -4,14 +4,13 @@
       <h1>Your Orders</h1>
       <icon class="Home-spinner" v-if="isLoading" name="spinner" scale="2" spin></icon>
     </div>
-    <div v-for="order in orders">
-      {{ order.order_id }}
-    </div>
+    <OrderBlock v-bind="order" v-for="order in orders" :key="order.order_id"/>
   </div>
 </template>
 
 <script>
 import Icon from 'vue-awesome/components/Icon'
+import OrderBlock from '../components/OrderBlock'
 import config from '../config'
 
 import 'vue-awesome/icons/spinner'
@@ -38,14 +37,15 @@ export default {
       })
   },
   components: {
-    Icon
+    Icon,
+    OrderBlock
   }
 }
 </script>
 
 <style scoped>
 .Home {
-  margin: 0 20vw;
+  margin: 0 25vw;
 }
 
 .Home-title {
