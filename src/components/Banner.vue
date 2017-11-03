@@ -1,7 +1,7 @@
 <template>
-  <div class="Header">
-    <icon class="Header-icon" name="cutlery"></icon>
-    <span class="Header-title">Resto</span>
+  <div class="Banner">
+    <icon class="Banner-icon" name="cutlery"></icon>
+    <span class="Banner-title">Resto</span>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons/cutlery'
 
 export default {
-  name: 'Header',
+  name: 'Banner',
   components: {
     Icon
   }
@@ -18,20 +18,20 @@ export default {
 </script>
 
 <style scoped>
-.Header {
+.Banner {
   display: flex;
   align-items: center;
   padding: 10px 15vw;
   background-color: #f57347;
 }
 
-.Header-title {
+.Banner-title {
   font-size: xx-large;
   font-weight: 700;
   color: white;
 }
 
-.Header-icon {
+.Banner-icon {
   color: white;
   width: auto;
   height: 2em;
