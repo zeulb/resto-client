@@ -1,1 +1,6 @@
-{}
+{
+  "api": {
+    "url": "https://warm-ocean-55678.herokuapp.com",
+    "token": "5a831534a10f4cce33ed7d10d93b74a0"
+  }
+}
