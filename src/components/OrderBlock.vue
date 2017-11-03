@@ -1,31 +1,35 @@
 <template>
   <div class="OrderBlock">
-    <div class="OrderBlock-orderId">
-      {{ order_id }}
-    </div>
-    <div class="OrderBlock-delivered">
-      <icon class="OrderBlock-deliveredIcon" name="check"></icon>
-      Delivered
-    </div>
-    
-    <div class="OrderBlock-totalCost">
-      {{ totalCost }}
-    </div>
-    <div class="OrderBlock-deliveryBlock">
-      <div class="OrderBlock-deliveryDateTime">
-        <icon class="OrderBlock-deliveryDateTimeIcon" name="calendar"></icon>
-        {{ delivery_date }}
+    <div class="OrderBlock-summary">
+      <div class="OrderBlock-orderId">
+        {{ order_id }}
       </div>
-      <div class="OrderBlock-deliveryDateTime">
-        <icon class="OrderBlock-deliveryDateTimeIcon" name="clock-o"></icon>
-        {{ delivery_time }}
+      <div class="OrderBlock-delivered">
+        <icon class="OrderBlock-deliveredIcon" name="check"></icon>
+        Delivered
       </div>
+      
+      <div class="OrderBlock-totalCost">
+        {{ totalCost }}
+      </div>
+      <div class="OrderBlock-deliveryBlock">
+        <div class="OrderBlock-deliveryDateTime">
+          <icon class="OrderBlock-deliveryDateTimeIcon" name="calendar"></icon>
+          {{ delivery_date }}
+        </div>
+        <div class="OrderBlock-deliveryDateTime">
+          <icon class="OrderBlock-deliveryDateTimeIcon" name="clock-o"></icon>
+          {{ delivery_time }}
+        </div>
+      </div>
+      <icon class="OrderBlock-iconButton" name="chevron-down" />
     </div>
-    <icon class="OrderBlock-iconButton" name="chevron-down" />
+    <OrderDetails :order_id="order_id" :feedback_submitted="feedback_submitted" :order_items="order_items" />
   </div>
 </template>
 
 <script>
+import OrderDetails from './OrderDetails'
 import Icon from 'vue-awesome/components/Icon'
 import currencyFormatter from 'currency-formatter';
 
@@ -44,7 +48,8 @@ export default {
   },
   name: 'OrderBlock',
   components: {
-    Icon
+    Icon,
+    OrderDetails
   },
   computed: {
     totalCost: function () {
@@ -59,12 +64,15 @@ export default {
 
 <style scoped>
 .OrderBlock {
-  display: flex;
-  align-items: center;
   margin: 10px;
   padding: 10px 20px;
   border: thin solid grey;
   border-radius: 5px;
+}
+
+.OrderBlock-summary {
+  display: flex;
+  align-items: center;
 }
 
 .OrderBlock-orderId {
