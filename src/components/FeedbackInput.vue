@@ -8,7 +8,7 @@
       <icon v-if="rating==-1" class="FeedbackInput-ratingIcon" name="thumbs-down" scale="1.5" />
       <icon v-else class="FeedbackInput-ratingIcon" name="thumbs-o-down" scale="1.5" />
     </button>
-    <input class="FeedbackInput-input" type="text" placeholder="Leave us a comment?" v-if="rating!=0" />
+    <input v-model="comment" class="FeedbackInput-input" type="text" placeholder="Leave us a comment?" v-if="rating!=0" />
   </div>
 </template>
 
@@ -21,9 +21,8 @@ import 'vue-awesome/icons/thumbs-up'
 
 export default {
   props: {
-    order_id: String,
-    feedback_submitted: Boolean,
-    order_items: Array
+    ratable_id: Number,
+    onChange: Function
   },
   name: 'FeedbackInput',
   components: {
@@ -32,9 +31,19 @@ export default {
   methods: {
     onThumbsUpClick() {
       this.rating = (this.rating === 1) ? 0 : 1;
+      this.onUpdate();
     },
     onThumbsDownClick() {
       this.rating = (this.rating === -1) ? 0 : -1;
+      this.onUpdate();
+    },
+    onUpdate() {
+      this.onChange(this.ratable_id, this.rating, this.comment);
+    }
+  },
+  watch: {
+    comment() {
+      this.onUpdate();
     }
   },
   data() {

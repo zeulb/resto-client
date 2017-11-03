@@ -1,11 +1,11 @@
 <template>
   <div class="OrderDetails">
-    <div class="OrderDetails-feedbackSubmittedMessage" v-if="feedback_submitted">
+    <div class="OrderDetails-feedbackSubmittedMessage" v-if="submitted">
       Thank you for sending us your feedbacks!
     </div>
     <div class="OrderDetails-feedbackForm" v-else>
       How do you like this order?
-      <FeedbackInput v-if="!feedback_submitted"/>
+      <FeedbackInput v-if="!submitted" :ratable_id="ratable_id" :onChange="onFeedbackChange" />
     </div>
 
     <div class="OrderDetails-orderItems">
@@ -18,13 +18,13 @@
           <span class="OrderDetails-orderItemName">
             {{ item.name }}
           </span>
-          <FeedbackInput v-if="!feedback_submitted"/>
+          <FeedbackInput v-if="!submitted" :ratable_id="item.ratable_id" :onChange="onFeedbackChange" />
           <span class="OrderDetails-orderItemTotalPrice">
             {{ formatPrice(item.total_price) }}
           </span>
         </div>
       </div>
-      <button v-if="!feedback_submitted" class="OrderDetails-submitFeedbackButton" :disabled="!complete" v-on:click="onSubmitFeedback">
+      <button v-if="!submitted" class="OrderDetails-submitFeedbackButton" :disabled="!complete" v-on:click="onSubmitFeedback">
         Send Feedbacks
       </button>
     </div>
@@ -39,6 +39,7 @@ import currencyFormatter from 'currency-formatter';
 export default {
   props: {
     order_id: String,
+    ratable_id: Number,
     feedback_submitted: Boolean,
     order_items: Array
   },
@@ -49,7 +50,7 @@ export default {
   },
   computed: {
     complete() {
-      return true;
+      return this.feedbacks.every(feedback => feedback.rating !== 0);
     }
   },
   methods: {
@@ -58,8 +59,34 @@ export default {
     },
     onSubmitFeedback() {
       if (this.complete) {
-        this.feedback_submitted = true;
+        this.submitted = true;
       }
+    },
+    onFeedbackChange(ratable_id, rating, comment) {
+      const feedback = this.feedbacks.find(f => f.ratable_id === ratable_id)
+      feedback.rating = rating
+      feedback.comment = comment
+    }
+  },
+  data() {
+    return {
+      submitted: this.feedback_submitted,
+      feedbacks: [
+        {
+          ratable_id: this.ratable_id,
+          ratable_type: "DeliveryOrder",
+          rating: 0,
+          comment: ""
+        },
+        ...this.order_items.map(item => {
+          return {
+            ratable_id: item.ratable_id,
+            ratable_type: "OrderItem",
+            rating: 0,
+            comment: ""
+          }
+        })
+      ]
     }
   }
 }
